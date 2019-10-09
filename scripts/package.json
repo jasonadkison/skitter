@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/jasonadkison/skitter#readme",
   "dependencies": {
-    "lodash": "^4.17.15"
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "nickjs": "^0.3.6"
   }
 }

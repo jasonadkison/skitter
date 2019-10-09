@@ -9,9 +9,6 @@ RUN apt-get update && \
     apt-get install -f -y && \
     apt-get clean && \
     rm google-chrome-stable_current_amd64.deb && \
-    npm install --global nickjs && \
     mkdir -p /skitter
 
-WORKDIR /skitter
-RUN npm link nickjs
 WORKDIR /skitter/scripts
