@@ -2,10 +2,10 @@
   "name": "skitter-server",
   "version": "1.0.0",
   "description": "Web scraping within a docker container using [NickJS](https://github.com/phantombuster/nickjs) and headless chrome.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

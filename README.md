@@ -3,25 +3,61 @@
 Web scraping within docker containers using [NickJS](https://github.com/phantombuster/nickjs) and
 headless chrome.
 
-The main service is an express HTTP server with endpoints for each scraper. It launches
-a new sibling container for each scraper run. The server container requires access to the Docker
-socket so it must be bind-mounted at runtime.
-
-```bash
-$ docker run -it -v /var/run/docker.sock:/var/run/docker.sock -p 8080:8080 skitter/server
-```
+The main service is an express HTTP server with endpoints for each scraper. It handles running
+scrapers in sibling worker containers.
 
 # Development
 
-```bash
-$ nodemon server
+Simple workflow - just run nodemon and the server will run in watch mode. This starts the server
+outside of a container.
 
+```bash
+# start development
+$ nodemon server
 [nodemon] 1.19.3
 [nodemon] to restart at any time, enter `rs`
-[nodemon] watching dir(s): *.*
+[nodemon] watching dir(s): server/**/*
 [nodemon] watching extensions: js,mjs,json
 [nodemon] starting `node server`
-Running on http://0.0.0.0:8080]
+Running on http://0.0.0.0:8080
+```
+
+If you edit worker files, you'll need to rebuild the worker image before running them.
+
+```bash
+# build worker image
+$ docker build -t skitter/worker ./worker
+```
+
+You can also run scrapers independent of the server container using `docker run`.
+
+```bash
+# run a scraper directly on the worker container
+$ docker run skitter/worker instagram/account vancityreynolds
+```
+
+# Deploying
+
+When you're ready to deploy the platform just build both images so the latest code changes can be
+deployed.
+
+```bash
+# build both images
+$ docker build -t skitter/server ./server
+$ docker build -t skitter/worker ./worker
+```
+
+The server container requires access to the Docker socket of the host so it can issue commands
+to run worker containers. It must be bind-mounted at runtime.
+
+```bash
+# run the server container with access to docker socket
+$ docker run -it -v /var/run/docker.sock:/var/run/docker.sock -p 8080:8080 skitter/server
+
+> skitter-server@1.0.0 start /var/app
+> node server.js
+
+Running on http://0.0.0.0:8080
 ```
 
 # Scrapers
@@ -38,14 +74,6 @@ $ curl -XGET http://localhost:8080/demo
   {
     "title": "Hams Must Remove Repeaters from CA Mountaintops or Pay Huge Fees [pdf]",
     "url": "http://www.shastadefense.com/FAX-CalFireHamRadio20190923.pdf"
-  },
-  {
-    "title": "Dealing with China Isn’t Worth the Moral Cost",
-    "url": "https://www.nytimes.com/2019/10/09/opinion/china-houston-rockets.html"
-  },
-  {
-    "title": "Pair Locking Your iPhone",
-    "url": "https://arkadiyt.com/2019/10/07/pair-locking-your-iphone-with-configurator-2/"
   },
   ...
 ]
@@ -115,22 +143,6 @@ $ curl -XGET http://localhost:8080/instagram/comments/B3KmuouB3Md
     "userId": "230184381",
     "userAvatar": "https://instagram.fdpa1-1.fna.fbcdn.net/vp/7d6b16f948316c26579068ff1c75c3d2/5E23953C/t51.2885-19/s150x150/66653354_440256546818344_6930934793097969664_n.jpg?_nc_ht=instagram.fdpa1-1.fna.fbcdn.net",
     "username": "a_digimon"
-  },
-  {
-    "id": "18074986369094808",
-    "createdAt": 1570724999,
-    "text": "😂😂😂❤️❤️❤️",
-    "userId": "18082557047",
-    "userAvatar": "https://instagram.fdpa1-1.fna.fbcdn.net/vp/34676fb2063f115ec7eddc833e1f84a3/5E2B3652/t51.2885-19/s150x150/67123370_366199787633899_6655017641507291136_n.jpg?_nc_ht=instagram.fdpa1-1.fna.fbcdn.net",
-    "username": "caliagent81"
-  },
-  {
-    "id": "18106982617017243",
-    "createdAt": 1570722691,
-    "text": "Hello to Dog lover.We are volunteers caring for more than 450 dogs,from Croatia.We need to buy food, water, medicines every day.If you can help us at least a little bit,you can over: https://www.patreon.com/thesaviorofdogs\nor PayPal: thesaviorofdogs@gmail.com\nOur dogs will be grateful to you.Thank you",
-    "userId": "21697618857",
-    "userAvatar": "https://instagram.fdpa1-1.fna.fbcdn.net/vp/9b09c128301c3b5bfd9bf5e00b748747/5E199D90/t51.2885-19/s150x150/70012264_399900860698475_6490876184866324480_n.jpg?_nc_ht=instagram.fdpa1-1.fna.fbcdn.net",
-    "username": "thesaviorofdogs"
   },
   ...
 ]
