@@ -51,6 +51,28 @@ $ curl -XGET http://localhost:8080/demo
 ]
 ```
 
+### Instagram Account
+
+Returns an Instagram account.
+
+**Endpoint:** `/instagram/account/:handle`
+
+```bash
+$ curl -XGET http://localhost:8080/instagram/account/vancityreynolds
+{
+  "id": "1942463581",
+  "username": "vancityreynolds",
+  "name": "Ryan Reynolds",
+  "bio": "Owner: @aviationgin",
+  "postCount": 454,
+  "followerCount": 33083449,
+  "followCount": 195,
+  "isPrivate": false,
+  "isVerified": true,
+  "avatar": "https://instagram.fdpa1-1.fna.fbcdn.net/vp/d2464592778252b3bb75e76d0e416b27/5E3D0765/t51.2885-19/s320x320/67563378_539439043460568_7186379751144030208_n.jpg?_nc_ht=instagram.fdpa1-1.fna.fbcdn.net"
+}
+```
+
 ### Instagram Post
 
 Returns an Instagram post.

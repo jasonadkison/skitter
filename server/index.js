@@ -19,6 +19,12 @@ app.get('/demo', (req, res) => {
   docker.run('skitter/worker', ['node', 'demo'], res);
 });
 
+app.get('/instagram/account/:handle', (req, res) => {
+  const { params } = req;
+  const { handle } = params;
+  docker.run('skitter/worker', ['node', 'instagram/account', handle], res);
+});
+
 app.get('/instagram/post/:shortcode', (req, res) => {
   const { params } = req;
   const { shortcode } = params;
