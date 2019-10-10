@@ -86,7 +86,7 @@ Returns a user's recent posts.
 ```bash
 
 $ curl -XGET http://localhost:8080/instagram/feed/vancityreynolds/20
-curl -XGET http://localhost:8080/instagram/feed/vancityreynolds/15
+
 [
   {
     "id": "2146790862041136155",
