@@ -1,6 +1,6 @@
 # Skitter
 
-Web scraping within a docker containers using [NickJS](https://github.com/phantombuster/nickjs) and
+Web scraping within docker containers using [NickJS](https://github.com/phantombuster/nickjs) and
 headless chrome.
 
 The main service is an express HTTP server with endpoints for each scraper. It launches
@@ -124,6 +124,7 @@ More scrapers will be added soon, feel free to submit yours via PR!
 * Add better error handling and payload delivery.
 * Add proxy pool
 * Add an actual UI
+* Testing
 
 ## Contributing
 
