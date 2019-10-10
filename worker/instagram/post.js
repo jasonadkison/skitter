@@ -1,13 +1,14 @@
 const Nick = require('nickjs');
 const _ = require('lodash');
-const URLOpener = require('../url-opener');
+const URLOpener = require('../utils/url-opener');
 const utils = require('./utils');
+const nick = new Nick({ printNavigation: false });
 
-const nick = new Nick();
 const args = process.argv.slice(2);
-const url = args[0];
+const shortcode = args[0];
 
 (async () => {
+  const url = `https://instagram.com/p/${shortcode}`;
   const tab = await nick.newTab();
   const urlOpener = new URLOpener(nick, tab);
 
@@ -23,7 +24,7 @@ const url = args[0];
 
   const res = await tab.evaluate(scraper);
 
-  console.log({
+  console.log(JSON.stringify({
     id: _.get(res, 'id', null),
     shortcode: _.get(res, 'shortcode', null),
     username: _.get(res, 'owner.username', null),
@@ -38,12 +39,12 @@ const url = args[0];
     videoUrl: _.get(res, 'video_url', null),
     createdAtTime: _.get(res, 'taken_at_timestamp', null),
     isSponsored: utils.isSponsoredMedia(res),
-  });
+  }, null, 2));
 })()
-.then(() => {
+.then((post) => {
   nick.exit();
 })
 .catch((err) => {
-  console.log(`Something went wrong: ${err}`);
+  console.error(`Something went wrong: ${err}`);
   nick.exit(1);
 });

@@ -2,6 +2,18 @@ const _ = require('lodash');
 
 module.exports = {
 
+  getCSRFToken: (arg, done) => {
+    const token = Cookies.get('csrftoken');
+    if (!token) return done('Could not extract the CSRF token.');
+    done(null, token);
+  },
+
+  getRhxGisToken: (arg, done) => {
+    const token = _.get(window._sharedData, 'rhx_gis', null);
+    if (!token) return done('Could not extract the rhx_gis token.');
+    done(null, token);
+  },
+
   isSponsoredMedia: (mediaEdge) => {
     if (_.get(mediaEdge, 'is_ad', false)) {
       return true;
@@ -26,6 +38,6 @@ module.exports = {
     }
 
     return false;
-  }
+  },
 
 }

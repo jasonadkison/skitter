@@ -1,0 +1,24 @@
+{
+  "name": "skitter-server",
+  "version": "1.0.0",
+  "description": "Web scraping within a docker container using [NickJS](https://github.com/phantombuster/nickjs) and headless chrome.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonadkison/skitter.git"
+  },
+  "author": "Jason Adkison <jadkison@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasonadkison/skitter/issues"
+  },
+  "homepage": "https://github.com/jasonadkison/skitter#readme",
+  "dependencies": {
+    "dockerode": "^3.0.2",
+    "express": "^4.17.1"
+  }
+}

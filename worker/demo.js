@@ -1,5 +1,5 @@
 const Nick = require("nickjs")
-const nick = new Nick({ debug: true })
+const nick = new Nick({ printNavigation: false })
 
 ;(async () => {
 
@@ -25,7 +25,6 @@ const nick = new Nick({ debug: true })
 
 })()
 .then(() => {
-  console.log("Job done!")
   nick.exit()
 })
 .catch((err) => {
