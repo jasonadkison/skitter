@@ -31,6 +31,12 @@ app.get('/instagram/post/:shortcode', (req, res) => {
   docker.run('skitter/worker', ['node', 'instagram/post', shortcode], res);
 });
 
+app.get('/instagram/comments/:shortcode', (req, res) => {
+  const { params } = req;
+  const { shortcode } = params;
+  docker.run('skitter/worker', ['node', 'instagram/comments', shortcode], res);
+});
+
 app.get('/instagram/feed/:handle/:count?', (req, res) => {
   const { params } = req;
   const { handle, count } = params;

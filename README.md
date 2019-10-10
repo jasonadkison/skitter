@@ -99,6 +99,43 @@ $ curl -XGET http://localhost:8080/instagram/post/B3KmuouB3Md
 }
 ```
 
+### Instagram Comments
+
+Returns a post's comments.
+
+**Endpoint:** `/instagram/comments/:shortcode`
+
+```bash
+$ curl -XGET http://localhost:8080/instagram/comments/B3KmuouB3Md
+[
+  {
+    "id": "17849038498631820",
+    "createdAt": 1570743028,
+    "text": "@autokineticnyc",
+    "userId": "230184381",
+    "userAvatar": "https://instagram.fdpa1-1.fna.fbcdn.net/vp/7d6b16f948316c26579068ff1c75c3d2/5E23953C/t51.2885-19/s150x150/66653354_440256546818344_6930934793097969664_n.jpg?_nc_ht=instagram.fdpa1-1.fna.fbcdn.net",
+    "username": "a_digimon"
+  },
+  {
+    "id": "18074986369094808",
+    "createdAt": 1570724999,
+    "text": "😂😂😂❤️❤️❤️",
+    "userId": "18082557047",
+    "userAvatar": "https://instagram.fdpa1-1.fna.fbcdn.net/vp/34676fb2063f115ec7eddc833e1f84a3/5E2B3652/t51.2885-19/s150x150/67123370_366199787633899_6655017641507291136_n.jpg?_nc_ht=instagram.fdpa1-1.fna.fbcdn.net",
+    "username": "caliagent81"
+  },
+  {
+    "id": "18106982617017243",
+    "createdAt": 1570722691,
+    "text": "Hello to Dog lover.We are volunteers caring for more than 450 dogs,from Croatia.We need to buy food, water, medicines every day.If you can help us at least a little bit,you can over: https://www.patreon.com/thesaviorofdogs\nor PayPal: thesaviorofdogs@gmail.com\nOur dogs will be grateful to you.Thank you",
+    "userId": "21697618857",
+    "userAvatar": "https://instagram.fdpa1-1.fna.fbcdn.net/vp/9b09c128301c3b5bfd9bf5e00b748747/5E199D90/t51.2885-19/s150x150/70012264_399900860698475_6490876184866324480_n.jpg?_nc_ht=instagram.fdpa1-1.fna.fbcdn.net",
+    "username": "thesaviorofdogs"
+  },
+  ...
+]
+```
+
 ### Instagram Feed
 
 Returns a user's recent posts.
@@ -106,7 +143,6 @@ Returns a user's recent posts.
 **Endpoint:** `/instagram/feed/:handle/:count`
 
 ```bash
-
 $ curl -XGET http://localhost:8080/instagram/feed/vancityreynolds/20
 [
   {
