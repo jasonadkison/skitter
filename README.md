@@ -6,61 +6,9 @@ headless chrome.
 The main service is an express HTTP server with endpoints for each scraper. It handles running
 scrapers in sibling worker containers.
 
-# Development
+# [Scrapers](#scrapers)
 
-Simple workflow - just run nodemon and the server will run in watch mode. This starts the server
-outside of a container.
-
-```bash
-# start development
-$ nodemon server
-[nodemon] 1.19.3
-[nodemon] to restart at any time, enter `rs`
-[nodemon] watching dir(s): server/**/*
-[nodemon] watching extensions: js,mjs,json
-[nodemon] starting `node server`
-Running on http://0.0.0.0:8080
-```
-
-If you edit worker files, you'll need to rebuild the worker image before running them.
-
-```bash
-# build worker image
-$ docker build -t skitter/worker ./worker
-```
-
-You can also run scrapers independent of the server container using `docker run`.
-
-```bash
-# run a scraper directly on the worker container
-$ docker run skitter/worker instagram/account vancityreynolds
-```
-
-# Deploying
-
-When you're ready to deploy the platform just build both images so the latest code changes can be
-deployed.
-
-```bash
-# build both images
-$ docker build -t skitter/server ./server
-$ docker build -t skitter/worker ./worker
-```
-
-The server container requires access to the Docker socket of the host so it can issue commands
-to run worker containers. It must be bind-mounted at runtime.
-
-```bash
-# run the server container with access to docker socket
-$ docker run -it -v /var/run/docker.sock:/var/run/docker.sock -p 8080:8080 skitter/server
-
-> skitter-server@1.0.0 start /var/app
-> node server.js
-
-Running on http://0.0.0.0:8080
-```
-
-# Scrapers
+## [Demo](#demo)
 
 ### hackernews demo
 
@@ -79,7 +27,9 @@ $ curl -XGET http://localhost:8080/demo
 ]
 ```
 
-### Instagram Account
+## [Instagram](#instagram)
+
+### [Instagram Account](#instagram-account)
 
 Returns an Instagram account.
 
@@ -101,7 +51,7 @@ $ curl -XGET http://localhost:8080/instagram/account/vancityreynolds
 }
 ```
 
-### Instagram Post
+### [Instagram Post](#instagram-post)
 
 Returns an Instagram post.
 
@@ -127,7 +77,7 @@ $ curl -XGET http://localhost:8080/instagram/post/B3KmuouB3Md
 }
 ```
 
-### Instagram Comments
+### [Instagram Comments](#instagram-comments)
 
 Returns a post's comments.
 
@@ -148,7 +98,7 @@ $ curl -XGET http://localhost:8080/instagram/comments/B3KmuouB3Md
 ]
 ```
 
-### Instagram Feed
+### [Instagram Feed](#instagram-feed)
 
 Returns a user's recent posts.
 
@@ -188,13 +138,67 @@ $ curl -XGET http://localhost:8080/instagram/feed/vancityreynolds/20
 
 More scrapers will be added soon, feel free to submit yours via PR!
 
-## Roadmap
+# [Development](#development)
+
+Simple workflow - just run nodemon and the server will run in watch mode. This starts the server
+outside of a container.
+
+```bash
+# start development
+$ nodemon server
+[nodemon] 1.19.3
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching dir(s): server/**/*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node server`
+Running on http://0.0.0.0:8080
+```
+
+If you edit worker files, you'll need to rebuild the worker image before running them.
+
+```bash
+# build worker image
+$ docker build -t skitter/worker ./worker
+```
+
+You can also run scrapers independent of the server container using `docker run`.
+
+```bash
+# run a scraper directly on the worker container
+$ docker run skitter/worker instagram/account vancityreynolds
+```
+
+# [Deploying](#deploying)
+
+When you're ready to deploy the platform just build both images so the latest code changes can be
+deployed.
+
+```bash
+# build both images
+$ docker build -t skitter/server ./server
+$ docker build -t skitter/worker ./worker
+```
+
+The server container requires access to the Docker socket of the host so it can issue commands
+to run worker containers. It must be bind-mounted at runtime.
+
+```bash
+# run the server container with access to docker socket
+$ docker run -it -v /var/run/docker.sock:/var/run/docker.sock -p 8080:8080 skitter/server
+
+> skitter-server@1.0.0 start /var/app
+> node server.js
+
+Running on http://0.0.0.0:8080
+```
+
+## [Roadmap](#roadmap)
 * Implement streams and real-time tailing of the scraper output.
 * Add better error handling and payload delivery.
 * Add proxy pool
 * Add an actual UI
 * Testing
 
-## Contributing
+## [Contributing](#contributing)
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jasonadkison/skitter.
