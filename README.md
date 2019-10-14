@@ -136,6 +136,35 @@ $ curl -XGET http://localhost:8080/instagram/feed/vancityreynolds/20
 ]
 ```
 
+## [Facebook](#facebook)
+
+### [Facebook Post](#facebook-post)
+
+Returns a Facebook post
+
+**Endpoint:** `/facebook/post?url=:url`
+
+```bash
+$ curl -XGET http://localhost:8080/facebook/post?url=https://www.facebook.com/Drake/videos/369537750369288
+{
+  "post": {
+    "id": "10157393620784304",
+    "url": "https://www.facebook.com/Drake/videos/369537750369288",
+    "body": "EPISODE 2 TONIGHT. HBO Euphoria",
+    "timestamp": 1561320290,
+    "type": "video",
+    "image": "https://scontent.fdpa1-1.fna.fbcdn.net/v/t15.5256-10/65303858_369537940369269_5753347626317643776_n.jpg?_nc_cat=103&_nc_oc=AQkeS-E_B-uTETWkyLKXku8nU3rVA4CtxXhMAHCzaqGuBjDSvkOc3yiX-fbGOIT3S0M&_nc_ht=scontent.fdpa1-1.fna&oh=944856e8bcbc766ae0313824e0257dc4&oe=5E1F4AFD"
+  },
+  "stats": {
+    "reactions": 9000,
+    "likes": 7800,
+    "comments": 1600,
+    "shares": "485",
+    "views": "114,998"
+  }
+}
+```
+
 More scrapers will be added soon, feel free to submit yours via PR!
 
 # [Development](#development)

@@ -43,5 +43,14 @@ app.get('/instagram/feed/:handle/:count?', (req, res) => {
   docker.run('skitter/worker', ['node', 'instagram/feed', handle, `${count || 20}`], res);
 });
 
+app.get('/facebook/post', (req, res) => {
+  const { query } = req;
+  const { url } = query;
+
+  if (!url) res.status(422).send('Missing the required url parameter.');
+
+  docker.run('skitter/worker', ['node', 'facebook/post', url], res);
+});
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
